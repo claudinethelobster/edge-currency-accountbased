@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- fixed: (HyperEVM) Correct USD₮0 denomination multiplier from 18 to 6 decimals
+
 ## 4.73.0 (2026-02-10)
 
 - chaged: Utilize the new edge-core-js sync status API (when available).
