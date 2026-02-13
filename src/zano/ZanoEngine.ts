@@ -234,6 +234,14 @@ export class ZanoEngine extends CurrencyEngine<
       const currentAmount = nativeAmountMap.get(assetId) ?? '0'
       nativeAmountMap.set(assetId, add(currentAmount, amount.toFixed()))
     }
+    // Also process token transfers from subtransfers (for BTCx and other tokens)
+    for (const transfer of tx.subtransfers ?? []) {
+      if (transfer.is_income) {
+        const { asset_id: assetId, amount } = transfer
+        const currentAmount = nativeAmountMap.get(assetId) ?? '0'
+        nativeAmountMap.set(assetId, add(currentAmount, amount.toFixed()))
+      }
+    }
     for (const entry of tx.employed_entries.spent ?? []) {
       // spent amounts include the fee
       const { asset_id: assetId, amount } = entry
